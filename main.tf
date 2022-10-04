@@ -1,3 +1,3 @@
 provider "google" {
-  project = "apsitvarkom-dev"
+  project = "${var.project_name}-${var.project_environment}"
 }
