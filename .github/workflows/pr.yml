@@ -20,11 +20,6 @@ jobs:
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.TERRAFORM_SERVICE_ACCOUNT }}
 
-      - name: Terraform init
-        run: terraform init
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.TERRAFORM_SERVICE_ACCOUNT }}
-
       - name: Terraform validate
         run: terraform validate -no-color
 
@@ -39,7 +34,7 @@ jobs:
           header: plan
           recreate: true
           message: |
-            Plan 📝
+            ## Plan 📝
             ```bash
             ${{ steps.tfplan.outputs.stdout }}
             ```
