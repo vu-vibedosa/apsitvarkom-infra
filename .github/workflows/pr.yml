@@ -29,14 +29,17 @@ jobs:
         run: terraform validate -no-color
 
       - name: Terraform plan
+        id: tfplan
         run: terraform plan -no-color
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.TERRAFORM_SERVICE_ACCOUNT }}
 
       - uses: marocchino/sticky-pull-request-comment@v2
         with:
-          header: Plan 📝
+          header: plan
+          recreate: true
           message: |
+            Plan 📝
             ```bash
-            ${{ steps.plan.outputs.stdout }}
+            ${{ steps.tfplan.outputs.stdout }}
             ```
