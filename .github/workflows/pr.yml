@@ -1,0 +1,42 @@
+name: "Terraform pipeline"
+
+on:
+  pull_request:
+
+jobs:
+  terraform:
+    name: "Terraform"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform format
+        run: terraform fmt -check
+
+      - name: Terraform init
+        run: terraform init
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.TERRAFORM_SERVICE_ACCOUNT }}
+
+      - name: Terraform init
+        run: terraform init
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.TERRAFORM_SERVICE_ACCOUNT }}
+
+      - name: Terraform validate
+        run: terraform validate -no-color
+
+      - name: Terraform plan
+        run: terraform plan -no-color
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.TERRAFORM_SERVICE_ACCOUNT }}
+
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: Plan 📝
+          message: |
+            ```bash
+            ${{ steps.plan.outputs.stdout }}
+            ```
