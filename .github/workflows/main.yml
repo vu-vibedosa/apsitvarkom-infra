@@ -1,11 +1,13 @@
-name: "Terraform PR plan"
+name: "Terraform main apply"
 
 on:
-  pull_request:
+  push:
+    branches:
+      - main
 
 jobs:
   terraform:
-    name: "Plan"
+    name: "Main apply"
     runs-on: ubuntu-latest
 
     steps:
@@ -25,16 +27,11 @@ jobs:
 
       - name: Terraform plan
         id: tfplan
-        run: terraform plan -no-color
+        run: terraform plan -no-color -out tfplan
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.TERRAFORM_SERVICE_ACCOUNT }}
 
-      - uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          header: plan
-          recreate: true
-          message: |
-            ## Plan 📝
-            ```bash
-            ${{ steps.tfplan.outputs.stdout }}
-            ```
+      - name: Terraform apply
+        run: terraform apply -no-color -auto-approve tfplan
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.TERRAFORM_SERVICE_ACCOUNT }}
