@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  terraform:
+  terraform-apply:
     name: "Main apply"
     runs-on: ubuntu-latest
 
