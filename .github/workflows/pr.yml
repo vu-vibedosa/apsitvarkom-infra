@@ -4,7 +4,7 @@ on:
   pull_request:
 
 jobs:
-  terraform:
+  terraform-plan:
     name: "Plan"
     runs-on: ubuntu-latest
 
