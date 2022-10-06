@@ -15,8 +15,8 @@ resource "google_project_iam_member" "token_creator_ga_cd_binding" {
   member  = "serviceAccount:${google_service_account.ga_cd_account.email}"
 }
 
-resource "google_project_iam_member" "cloud_run_agent_ga_cd_binding" {
+resource "google_project_iam_member" "cloud_run_admin_ga_cd_binding" {
   project = "${var.project_name}-${var.project_environment}"
-  role    = "roles/run.serviceAgent"
+  role    = "roles/run.admin"
   member  = "serviceAccount:${google_service_account.ga_cd_account.email}"
 }
