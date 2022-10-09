@@ -1,11 +1,27 @@
 resource "google_cloud_run_service" "be_service" {
   name     = "apsitvarkom-be"
   location = "us-east1"
+
+  template {
+    spec {
+      containers {
+        image = "${google_artifact_registry_repository.docker_repo.location}-docker.pkg.dev/${var.project_name}-${var.project_environment}/docker-${var.project_name}-${var.project_environment}/apsitvarkom-be"
+      }
+    }
+  }
 }
 
 resource "google_cloud_run_service" "fe_service" {
   name     = "apsitvarkom-fe"
   location = "us-east1"
+
+  template {
+    spec {
+      containers {
+        image = "${google_artifact_registry_repository.docker_repo.location}-docker.pkg.dev/${var.project_name}-${var.project_environment}/docker-${var.project_name}-${var.project_environment}/apsitvarkom-fe"
+      }
+    }
+  }
 }
 
 data "google_iam_policy" "noauth" {
