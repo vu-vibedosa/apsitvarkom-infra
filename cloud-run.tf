@@ -7,9 +7,10 @@ resource "google_cloud_run_service" "cr_services" {
     spec {
       containers {
         image = "${google_artifact_registry_repository.docker_repo.location}-docker.pkg.dev/${var.project_name}-${var.project_environment}/docker-${var.project_name}-${var.project_environment}/${each.key}"
-      }
-      ports {
-        container_port = 80
+
+        ports {
+          container_port = 80
+        }
       }
     }
   }
