@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "apsitvarkom-dev-bucket-tfstate"
+    bucket = "apsitvarkom-staging-bucket-tfstate"
     prefix = "terraform/state"
   }
 }
