@@ -1,2 +1,2 @@
-project_environment = "dev"
+project_environment = "staging"
 project_name        = "apsitvarkom"

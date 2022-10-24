@@ -27,7 +27,7 @@ jobs:
 
       - name: Terraform plan
         id: tfplan
-        run: terraform plan -no-color -out tfplan
+        run: terraform plan -no-color -var-file="vars/staging.tfvars" -out tfplan
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.TERRAFORM_SERVICE_ACCOUNT }}
 
