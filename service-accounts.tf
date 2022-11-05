@@ -26,3 +26,8 @@ resource "google_project_iam_member" "service_account_user_ga_cd_binding" {
   role    = "roles/iam.serviceAccountUser"
   member  = "serviceAccount:${google_service_account.ga_cd_account.email}"
 }
+
+resource "google_service_account" "postgresql_vm_account" {
+  account_id   = "postgresql-vm"
+  display_name = "PostgreSQL virtual machine service account"
+}
