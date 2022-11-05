@@ -3,6 +3,8 @@ resource "google_compute_instance" "postgresql" {
   machine_type = "e2-micro"
   zone         = "us-east1-b"
 
+  tags = ["postgresql"]
+
   boot_disk {
     initialize_params {
       image = "ubuntu-os-cloud/ubuntu-2204-lts"
@@ -13,6 +15,9 @@ resource "google_compute_instance" "postgresql" {
 
   network_interface {
     network = "default"
+    access_config {
+      network_tier = "STANDARD"
+    }
   }
 
   metadata_startup_script = file("${path.module}/postgresql-init.sh")
