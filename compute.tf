@@ -27,3 +27,17 @@ resource "google_compute_instance" "postgresql" {
     scopes = ["cloud-platform"]
   }
 }
+
+resource "google_compute_firewall" "all_to_postgresql" {
+  name        = "all-to-postgresql"
+  network     = "default"
+  description = "Firewall rule to allow cloud run services to communicate with PostgreSQL VM"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["5432"]
+  }
+
+  target_tags   = google_compute_instance.postgresql.tags
+  source_ranges = ["0.0.0.0/0"]
+}
