@@ -31,3 +31,12 @@ resource "google_service_account" "postgresql_vm_account" {
   account_id   = "postgresql-vm"
   display_name = "PostgreSQL virtual machine service account"
 }
+
+resource "google_project_iam_member" "cloud_run_secret_access_binding" {
+  project = "${var.project_name}-${var.project_environment}"
+  role    = "roles/secretmanager.secretAccessor"
+  member  = "serviceAccount:${data.google_compute_default_service_account.cloud_run_service_account.email}"
+}
+
+data "google_compute_default_service_account" "cloud_run_service_account" {
+}
