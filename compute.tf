@@ -16,7 +16,7 @@ resource "google_compute_instance" "postgresql" {
   network_interface {
     network = "default"
     access_config {
-      network_tier = "STANDARD"
+      network_tier = "PREMIUM" // Free tier uses on PREMIUM network tier
     }
   }
 
